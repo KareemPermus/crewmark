@@ -1,0 +1,56 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/health",
+    "auth_required": false,
+    "sample_params": {},
+    "sample_body": null,
+    "success_status": 200,
+    "response_shape": { "status": "string" }
+  },
+  {
+    "method": "GET",
+    "path": "/api/employees",
+    "auth_required": false,
+    "sample_params": {},
+    "sample_body": null,
+    "success_status": 200,
+    "response_shape": "array"
+  },
+  {
+    "method": "GET",
+    "path": "/api/employees/:id",
+    "auth_required": false,
+    "sample_params": { "id": 1 },
+    "sample_body": null,
+    "success_status": 200,
+    "response_shape": { "id": "int", "firstName": "string", "lastName": "string", "email": "string", "phone": "string?", "jobTitle": "string", "department": "string?", "location": "string?", "avatarUrl": "string?", "createdAt": "string" }
+  },
+  {
+    "method": "POST",
+    "path": "/api/employees",
+    "auth_required": false,
+    "sample_params": {},
+    "sample_body": { "firstName": "Alice", "lastName": "Johnson", "email": "alice@example.com", "jobTitle": "Engineer", "department": "Engineering", "location": "San Francisco", "phone": "+1-555-0101" },
+    "success_status": 201,
+    "response_shape": { "id": "int", "firstName": "string", "lastName": "string", "email": "string", "phone": "string?", "jobTitle": "string", "department": "string?", "location": "string?", "avatarUrl": "string?", "createdAt": "string" }
+  },
+  {
+    "method": "PUT",
+    "path": "/api/employees/:id",
+    "auth_required": false,
+    "sample_params": { "id": 1 },
+    "sample_body": { "firstName": "Bob", "jobTitle": "Senior Engineer" },
+    "success_status": 200,
+    "response_shape": { "id": "int", "firstName": "string", "lastName": "string", "email": "string", "phone": "string?", "jobTitle": "string", "department": "string?", "location": "string?", "avatarUrl": "string?", "createdAt": "string" }
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/employees/:id",
+    "auth_required": false,
+    "sample_params": { "id": 1 },
+    "sample_body": null,
+    "success_status": 200,
+    "response_shape": { "success": "boolean" }
+  }
+]

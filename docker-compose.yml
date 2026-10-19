@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: crewmark-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: crewmark_89d1e811
+    ports:
+      - "3306:3306"
+    networks:
+      - appnet
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  frontend:
+    build: ./frontend
+    container_name: crewmark-frontend
+    ports:
+      - "4000:4000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:3001
+    networks:
+      - appnet
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: crewmark-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DB=crewmark_89d1e811
+    networks:
+      - appnet
+    depends_on:
+      mysql:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  appnet:
+    driver: bridge
